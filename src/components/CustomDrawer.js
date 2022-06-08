@@ -8,7 +8,7 @@ const CustomDrawer = (props) => {
             <DrawerContentScrollView
                 {...props}
             >
-                <ImageBackground source={{ uri: 'https://img.freepik.com/free-vector/gradient-dynamic-blue-lines-background_23-2148995756.jpg?w=2000' }} style={styles.BG}>
+                <ImageBackground source={{ uri: 'https://img.freepik.com/free-photo/gradient-defocused-abstract-photo-smooth-pink-pastel-color-background_49683-4869.jpg?w=2000' }} style={styles.BG}>
                     <Image style={{ width: 80, height: 80, borderRadius: 100 }} source={{ uri: 'https://carrots-incentive.s3.amazonaws.com/companies/cover_1653567581857-487470733.jpg' }} />
                     <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginLeft: 10 }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 22 }}>Jhon Doe</Text>
@@ -18,7 +18,7 @@ const CustomDrawer = (props) => {
                 <DrawerItemList {...props}
                 />
             </DrawerContentScrollView>
-            <View style={{borderTopWidth:1, borderColor:'#ddd', padding:25}}>
+            <View style={{ borderTopWidth: 1, borderColor: '#ddd', padding: 25 }}>
                 <Text style={{ color: 'red' }}>My Text</Text>
             </View>
         </View>

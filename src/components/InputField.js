@@ -2,10 +2,10 @@ import { View, Text,StyleSheet, TextInput } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-const InputField = () => {
+const InputField = (props) => {
     return (
         <View style={styles.container}>
-            <TextInput style={styles.input} placeholder="Search..." placeholderTextColor={'#ddd'}/>
+            <TextInput onChangeText={props.handleValue} style={styles.input} placeholder="Search..." placeholderTextColor={'#ddd'}/>
             <Ionicons name="search" color="black" size={20} style={styles.icon}/>
         </View>
     )

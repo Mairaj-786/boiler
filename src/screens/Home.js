@@ -10,9 +10,16 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import HomeSlide from '../components/HomeSlide';
 import Categories from '../components/Categories';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 
 const Home = (props) => {
+  const dispatch = useDispatch()
+  const { token, catItems } = useSelector((state) => state.authReducer)
+  console.log(catItems)
+  const [name, setName] = React.useState('')
   const slideItems = [
     {
       id: 1,
@@ -37,48 +44,33 @@ const Home = (props) => {
     },
   ]
 
-  const catItems = [
-    {
-      id: 1,
-      title: 'Pizza',
-      img: 'https://cdn-icons-png.flaticon.com/512/1404/1404945.png'
-    },
-    {
-      id: 2,
-      title: 'Burger',
-      img: 'https://cdn5.vectorstock.com/i/1000x1000/90/49/burger-icon-fastfood-isolated-sweet-food-vector-20979049.jpg'
-    },
-    {
-      id: 3,
-      title: 'Tacos',
-      img: 'https://cdn-icons-png.flaticon.com/512/4062/4062916.png'
-    },
-    {
-      id: 4,
-      title: 'Drink',
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUpiNnAck-i0itk4eknoAJT-bTHFwrQh1ChA&usqp=CAU'
-    },
-    {
-      id: 5,
-      title: 'Fries',
-      img: 'https://cdn-icons-png.flaticon.com/512/1057/1057356.png'
-    },
-    {
-      id: 6,
-      title: 'Top',
-      img: 'https://cdn-icons-png.flaticon.com/512/1404/1404945.png'
-    },
-    {
-      id: 7,
-      title: 'Pizza',
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUpiNnAck-i0itk4eknoAJT-bTHFwrQh1ChA&usqp=CAU'
-    },
-    {
-      id: 8,
-      title: 'Drink',
-      img: 'https://cdn-icons-png.flaticon.com/512/4062/4062916.png'
-    },
-  ]
+
+
+  const getName = async () => {
+    const name = await AsyncStorage.getItem('user')
+    setName(name)
+    console.log(name)
+  }
+
+  React.useEffect(() => {
+    getName()
+  }, [])
+
+  React.useEffect(() => {
+
+  }, [catItems])
+
+  const handleLogout = async () => {
+    dispatch({ type: "CHANGE" })
+  }
+
+  const [category, setCategory] = React.useState('')
+
+
+  const AddData = async () => {
+    dispatch({ type: "ADD", payload: { id: 15, title: category } })
+    // await catItems.push({ ...catItems, 'id': 15, 'title': category })
+  }
 
 
   return (
@@ -87,7 +79,7 @@ const Home = (props) => {
         locations={[-.10, 0.5, 0.1]} colors={['#DD1144', '#fff',]} style={styles.linearGradient}>
         {/* header begin*/}
         <View>
-          <CustomHeader onClick={() => props.navigation.openDrawer()} iconName="menu" title="Browse" />
+          <CustomHeader logOut={() => handleLogout()} onClick={() => props.navigation.openDrawer()} iconName="menu" title={`Hi, ${token}`} />
         </View>
         {/* header end*/}
         <ScrollView>
@@ -114,7 +106,10 @@ const Home = (props) => {
           {/* Slide end */}
           {/* categories begin */}
           <View style={styles.categories}>
-            <Text style={styles.trendingLeft}>Categories</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Text style={styles.trendingLeft} onPress={() => AddData()}>Categories</Text>
+              <InputField handleValue={(e) => setCategory(e)} />
+            </View>
             <FlatList
               numColumns={4}
               data={catItems}
@@ -133,7 +128,7 @@ const Home = (props) => {
 const styles = StyleSheet.create({
   container: {
     // height: windowHeight
-    flex:1,
+    flex: 1,
   },
   buttonText: {
     color: 'black'
@@ -141,7 +136,7 @@ const styles = StyleSheet.create({
   linearGradient: {
     opacity: .9,
     flex: 1,
-    height: 100
+    // height: 100
   },
   // trending
   trending: {

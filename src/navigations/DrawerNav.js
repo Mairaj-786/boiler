@@ -5,6 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import CustomDrawer from '../components/CustomDrawer';
 import Profile from '../screens/Profile';
 import CategoryData from '../screens/CategoryData';
+import About from '../screens/About';
 
 const Drawer = createDrawerNavigator();
 
@@ -13,7 +14,7 @@ function DrawerNav() {
         <Drawer.Navigator
             drawerContent={props => <CustomDrawer {...props} />} screenOptions={{
                 headerShown: true,
-                drawerActiveBackgroundColor: '#0360CC',
+                drawerActiveBackgroundColor: 'pink',
                 drawerActiveTintColor: '#fff',
                 drawerInactiveBackgroundColor: '#F6F8FA',
                 drawerInactiveTintColor: '#000',
@@ -24,22 +25,12 @@ function DrawerNav() {
             }}
         >
             <Drawer.Screen name="Home" component={Home} options={{
-                headerShown:false,
+                headerShown: false,
                 drawerIcon: ({ color }) => (
                     <Ionicons name="home" size={20} color={color} />
                 )
             }} />
-            <Drawer.Screen name="About" component={Home} options={{
-                drawerIcon: ({ color }) => (
-                    <Ionicons name="heart" size={20} color={color} />
-                )
-            }} />
-            <Drawer.Screen name="Profile" component={Profile} options={{
-                drawerIcon: ({ color }) => (
-                    <Ionicons name="heart" size={20} color={color} />
-                )
-            }} />
-            <Drawer.Screen name="Logout" component={Home} options={{
+            <Drawer.Screen name="About" component={About} options={{
                 drawerIcon: ({ color }) => (
                     <Ionicons name="heart" size={20} color={color} />
                 )
